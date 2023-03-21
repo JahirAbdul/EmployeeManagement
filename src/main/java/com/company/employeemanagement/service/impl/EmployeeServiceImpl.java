@@ -35,6 +35,15 @@ public class EmployeeServiceImpl implements EmployeeService {
          *      2. if exists return dto object of the same employee
          *      3. else return null
         * */
+        for(Employee employee : inMemoryEmployee){
+            if(employee.getName().equalsIgnoreCase(name)){
+                EmployeeDto employeeDto=new EmployeeDto();
+                employeeDto.setId(employee.getId());
+                employeeDto.setName(employee.getName());
+                employeeDto.setAge(employee.getAge());
+                return employeeDto;
+            }
+        }
         return null;
     }
 
