@@ -14,9 +14,9 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
-        Employee employee = new Employee(employeeDto.getId(),employeeDto.getName(),employeeDto.getAge());
+        Employee employee = new Employee(employeeDto.getId(), employeeDto.getName(), employeeDto.getAge());
         inMemoryEmployee.add(employee);
-        log.info("Employee List updated - {}",inMemoryEmployee);
+        log.info("Employee List updated - {}", inMemoryEmployee);
         EmployeeDto responseDto = new EmployeeDto();
         responseDto.setId(employee.getId());
         responseDto.setName(employee.getName());
@@ -31,13 +31,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto findEmployee(String name) {
-        /* ToDo 1. Search for employee if he exists
-         *      2. if exists return dto object of the same employee
-         *      3. else return null
-        * */
-        for(Employee employee : inMemoryEmployee){
-            if(employee.getName().equalsIgnoreCase(name)){
-                EmployeeDto employeeDto=new EmployeeDto();
+        for (Employee employee : inMemoryEmployee) {
+            if (employee.getName().equalsIgnoreCase(name)) {
+                EmployeeDto employeeDto = new EmployeeDto();
                 employeeDto.setId(employee.getId());
                 employeeDto.setName(employee.getName());
                 employeeDto.setAge(employee.getAge());
@@ -49,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private List<EmployeeDto> getEmployeeDtoList() {
         List<EmployeeDto> employeeDtoList = new ArrayList<>();
-        for(Employee employee : inMemoryEmployee){
+        for (Employee employee : inMemoryEmployee) {
             EmployeeDto employeeDto = new EmployeeDto();
             employeeDto.setId(employee.getId());
             employeeDto.setName(employee.getName());
