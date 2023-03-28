@@ -54,4 +54,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return employeeDtoList;
     }
+
+    public Employee deleteEmployee(int id) {
+        for (Employee employee : inMemoryEmployee) {
+            if (employee.getId() == id) {
+                int index = inMemoryEmployee.indexOf(employee);
+                return inMemoryEmployee.remove(index);
+            }
+        }
+        return null;
+    }
+
 }
