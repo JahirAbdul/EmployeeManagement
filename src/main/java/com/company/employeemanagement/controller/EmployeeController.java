@@ -1,6 +1,7 @@
 package com.company.employeemanagement.controller;
 
 import com.company.employeemanagement.dto.EmployeeDto;
+import com.company.employeemanagement.model.Employee;
 import com.company.employeemanagement.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,13 @@ public class EmployeeController {
         return new ResponseEntity<>("Employee not Found", HttpStatus.CONFLICT);
     }
 
+    @DeleteMapping("/deleteEmployee")
+    public ResponseEntity<Object> deleteEmployee(@RequestParam("id") int id) {
+        Employee employee = employeeService.deleteEmployee(id);
+        if (employee != null) {
+            return new ResponseEntity<>(employee, HttpStatus.FOUND);
+        }
+        return new ResponseEntity<>("Employee not Found", HttpStatus.CONFLICT);
+    }
 
 }
