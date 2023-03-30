@@ -11,6 +11,7 @@ import java.util.List;
 public interface EmployeeService {
 
     List<Employee> inMemoryEmployee = new ArrayList<>();
+
     EmployeeDto createEmployee(EmployeeDto employeeDto);
 
     List<EmployeeDto> getAllEmployees();
@@ -18,4 +19,7 @@ public interface EmployeeService {
     EmployeeDto findEmployee(String name);
 
     EmployeeUpdateDto updateEmployee(int id, EmployeeUpdateDto employeeUpdateDto);
+
+    Employee deleteEmployee(int id);
+
 }
