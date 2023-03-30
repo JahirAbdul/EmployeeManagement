@@ -1,6 +1,7 @@
 package com.company.employeemanagement.controller;
 
 import com.company.employeemanagement.dto.EmployeeDto;
+import com.company.employeemanagement.dto.EmployeeUpdateDto;
 import com.company.employeemanagement.model.Employee;
 import com.company.employeemanagement.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,14 @@ public class EmployeeController {
         return new ResponseEntity<>("Employee not Found", HttpStatus.CONFLICT);
     }
 
+    @PutMapping("/updateEmployee/{id}")
+    public ResponseEntity<EmployeeUpdateDto> updateEmployee(@PathVariable int id , @RequestBody EmployeeUpdateDto employeeUpdateDto) {
+        log.info("Request received with data - {}", employeeUpdateDto);
+        log.info("Request received with data - {}", id);
+        employeeService.updateEmployee(id, employeeUpdateDto);
+        return new ResponseEntity<>(employeeUpdateDto, HttpStatus.OK);
+    }
+    
     @DeleteMapping("/deleteEmployee")
     public ResponseEntity<Object> deleteEmployee(@RequestParam("id") int id) {
         Employee employee = employeeService.deleteEmployee(id);

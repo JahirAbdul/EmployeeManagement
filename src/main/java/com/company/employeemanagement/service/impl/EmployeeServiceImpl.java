@@ -1,6 +1,7 @@
 package com.company.employeemanagement.service.impl;
 
 import com.company.employeemanagement.dto.EmployeeDto;
+import com.company.employeemanagement.dto.EmployeeUpdateDto;
 import com.company.employeemanagement.model.Employee;
 import com.company.employeemanagement.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +56,20 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeDtoList;
     }
 
+    public EmployeeUpdateDto updateEmployee(int id, EmployeeUpdateDto employeeUpdateDto) {
+        for (Employee employee : inMemoryEmployee) {
+            if (employee.getId() == id) {
+                int index = inMemoryEmployee.indexOf(employee);
+                inMemoryEmployee.set(index, employee);
+                employee.setName(employeeUpdateDto.getName());
+                employee.setAge(employeeUpdateDto.getAge());
+                return employeeUpdateDto;
+            }
+
+        }
+        return null;
+    }
+    
     public Employee deleteEmployee(int id) {
         for (Employee employee : inMemoryEmployee) {
             if (employee.getId() == id) {
