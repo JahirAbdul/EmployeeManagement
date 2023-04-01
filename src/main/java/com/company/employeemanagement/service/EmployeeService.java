@@ -22,4 +22,5 @@ public interface EmployeeService {
 
     Employee deleteEmployee(int id);
 
+    boolean validation(EmployeeDto employeeDto);
 }
