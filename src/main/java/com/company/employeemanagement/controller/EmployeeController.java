@@ -39,8 +39,8 @@ public class EmployeeController {
         return new ResponseEntity<>("Employee not Found", HttpStatus.CONFLICT);
     }
 
-    @DeleteMapping("/deleteEmployee")
-    public ResponseEntity<Object> deleteEmployee(@RequestParam("id") int id) {
+    @DeleteMapping("/deleteEmployee/{id}")
+    public ResponseEntity<Object> deleteEmployee(@PathVariable int id) {
         Employee employee = employeeService.deleteEmployee(id);
         if (employee != null) {
             return new ResponseEntity<>(employee, HttpStatus.FOUND);
