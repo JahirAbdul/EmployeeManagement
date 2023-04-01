@@ -47,9 +47,9 @@ public class EmployeeController {
         employeeService.updateEmployee(id, employeeUpdateDto);
         return new ResponseEntity<>(employeeUpdateDto, HttpStatus.OK);
     }
-    
-    @DeleteMapping("/deleteEmployee")
-    public ResponseEntity<Object> deleteEmployee(@RequestParam("id") int id) {
+
+    @DeleteMapping("/deleteEmployee/{id}")
+    public ResponseEntity<Object> deleteEmployee(@PathVariable int id) {
         Employee employee = employeeService.deleteEmployee(id);
         if (employee != null) {
             return new ResponseEntity<>(employee, HttpStatus.FOUND);
