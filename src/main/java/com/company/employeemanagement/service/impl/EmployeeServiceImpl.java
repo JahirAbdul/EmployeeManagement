@@ -69,7 +69,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return null;
     }
-    
+
     public Employee deleteEmployee(int id) {
         for (Employee employee : inMemoryEmployee) {
             if (employee.getId() == id) {
@@ -78,6 +78,16 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean validation(EmployeeDto employeeDto) {
+        for (Employee employee : inMemoryEmployee) {
+            if (employeeDto.getId() == employee.getId()) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

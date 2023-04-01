@@ -20,14 +20,18 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @PostMapping("/createEmployee")
-    public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<Object> createEmployee(@RequestBody EmployeeDto employeeDto) {
         log.info("Request received with data - {}", employeeDto);
-        employeeService.createEmployee(employeeDto);
-        return new ResponseEntity<EmployeeDto>(employeeDto, HttpStatus.OK);
+        if (employeeService.validation(employeeDto)) {
+            employeeService.createEmployee(employeeDto);
+            return new ResponseEntity<>(employeeDto, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Employee Already Exist", HttpStatus.NOT_ACCEPTABLE);
     }
 
     @GetMapping("/getEmployees")
     public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
+        log.info("Employees Listed Successfully");
         return new ResponseEntity<>(employeeService.getAllEmployees(), HttpStatus.OK);
     }
 
@@ -35,23 +39,24 @@ public class EmployeeController {
     public ResponseEntity<Object> getEmployee(@RequestParam("name") String name) {
         EmployeeDto employee = employeeService.findEmployee(name);
         if (employee != null) {
+            log.info("Employee Found", employee);
             return new ResponseEntity<>(employee, HttpStatus.FOUND);
         }
         return new ResponseEntity<>("Employee not Found", HttpStatus.CONFLICT);
     }
 
     @PutMapping("/updateEmployee/{id}")
-    public ResponseEntity<EmployeeUpdateDto> updateEmployee(@PathVariable int id , @RequestBody EmployeeUpdateDto employeeUpdateDto) {
+    public ResponseEntity<EmployeeUpdateDto> updateEmployee(@PathVariable int id, @RequestBody EmployeeUpdateDto employeeUpdateDto) {
         log.info("Request received with data - {}", employeeUpdateDto);
-        log.info("Request received with data - {}", id);
         employeeService.updateEmployee(id, employeeUpdateDto);
         return new ResponseEntity<>(employeeUpdateDto, HttpStatus.OK);
     }
-    
+
     @DeleteMapping("/deleteEmployee")
     public ResponseEntity<Object> deleteEmployee(@RequestParam("id") int id) {
         Employee employee = employeeService.deleteEmployee(id);
         if (employee != null) {
+            log.info("Employee Deleted Successfully");
             return new ResponseEntity<>(employee, HttpStatus.FOUND);
         }
         return new ResponseEntity<>("Employee not Found", HttpStatus.CONFLICT);
